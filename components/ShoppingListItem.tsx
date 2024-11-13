@@ -1,15 +1,20 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Pressable } from "react-native";
 import { theme } from "../theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Entypo from "@expo/vector-icons/Entypo";
 
 interface ShoppingListItemProps {
   name: string;
   isCompleted?: boolean;
+  onDelete: () => void;
+  onToggleComplete: () => void;
 }
 
 export default function ShoppingListItem({
   name,
   isCompleted = false,
+  onDelete,
+  onToggleComplete,
 }: ShoppingListItemProps) {
   const handleDelete = () => {
     Alert.alert(
@@ -18,7 +23,7 @@ export default function ShoppingListItem({
       [
         {
           text: "Yes",
-          onPress: () => console.log("ok deleting"),
+          onPress: () => onDelete(),
           style: "destructive",
         },
         {
@@ -30,12 +35,16 @@ export default function ShoppingListItem({
   };
 
   return (
-    <View
+    <Pressable
+      onPress={onToggleComplete}
       style={[styles.itemContainer, isCompleted && styles.completedContainer]}
     >
-      <Text style={[styles.itemText, isCompleted && styles.completedText]}>
-        {name}
-      </Text>
+      <View style={styles.row}>
+        <Entypo name={isCompleted ? "check" : "circle"} size={24} color={isCompleted ? theme.colorGrey : theme.colorCerulean} />
+        <Text numberOfLines={1} style={[styles.itemText, isCompleted && styles.completedText]}>
+          {name}
+        </Text>
+      </View>
       <TouchableOpacity
         style={[styles.button, isCompleted && styles.completedButton]}
         onPress={handleDelete}
@@ -47,7 +56,7 @@ export default function ShoppingListItem({
           color={isCompleted ? theme.colorGrey : theme.colorRed}
         />
       </TouchableOpacity>
-    </View>
+    </Pressable>
   );
 }
 
@@ -76,7 +85,11 @@ const styles = StyleSheet.create({
     textDecorationColor: theme.colorGrey,
     color: theme.colorGrey,
   },
-  itemText: { fontSize: 18, fontWeight: 200 },
+  itemText: {
+    fontSize: 18,
+    fontWeight: 200,
+    flex: 1,
+   },
   button: { padding: 8, borderRadius: 6 },
   buttonText: {
     color: theme.colorWhite,
@@ -84,4 +97,9 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 1,
   },
+  row: {
+    flexDirection: "row",
+    gap: 8,
+    flex: 1,
+  }
 });
