@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Pressable,
+} from "react-native";
 import { theme } from "../theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -40,8 +47,15 @@ export default function ShoppingListItem({
       style={[styles.itemContainer, isCompleted && styles.completedContainer]}
     >
       <View style={styles.row}>
-        <Entypo name={isCompleted ? "check" : "circle"} size={24} color={isCompleted ? theme.colorGrey : theme.colorCerulean} />
-        <Text numberOfLines={1} style={[styles.itemText, isCompleted && styles.completedText]}>
+        <Entypo
+          name={isCompleted ? "check" : "circle"}
+          size={24}
+          color={isCompleted ? theme.colorGrey : theme.colorCerulean}
+        />
+        <Text
+          numberOfLines={1}
+          style={[styles.itemText, isCompleted && styles.completedText]}
+        >
           {name}
         </Text>
       </View>
@@ -89,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 200,
     flex: 1,
-   },
+  },
   button: { padding: 8, borderRadius: 6 },
   buttonText: {
     color: theme.colorWhite,
@@ -101,5 +115,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     flex: 1,
-  }
+  },
 });

@@ -1,45 +1,51 @@
-import { Stack, Tabs } from "expo-router";
-import {} from "react-native";
-import Feather from "@expo/vector-icons/Feather";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import { Stack, Link, useRouter } from "expo-router";
+import { Pressable, StyleSheet } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { theme } from "../theme";
 
 const _layout = () => {
+  const router = useRouter();
+
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: theme.colorCerulean }}>
-      <Tabs.Screen
+    <Stack>
+      <Stack.Screen
         name="index"
         options={{
-          title: "Shopping List",
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="list" size={size} color={color} />
+          title: "Habits",
+          headerLargeTitle: true,
+          headerTintColor: theme.colorLightest,
+          headerStyle: styles.header,
+          headerRight: () => (
+            <Pressable
+              onPress={() => router.navigate("/habits/create")}
+              hitSlop={20}
+            >
+              <FontAwesome5
+                style={{ color: theme.colorLightest }}
+                name="plus"
+                size={24}
+              />
+            </Pressable>
           ),
         }}
       />
-      <Tabs.Screen
-        name="counter"
+      <Stack.Screen
+        name="habits/create"
         options={{
-          title: "Counter",
+          title: "Create new habit",
+          presentation: "modal",
           headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="clockcircleo" size={size} color={color} />
-          ),
-          // presentation: "modal",
-          // animation: "slide_from_bottom",
+          animation: "slide_from_bottom",
         }}
       />
-      <Tabs.Screen
-        name="idea"
-        options={{
-          title: "Idea",
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name="lightbulb" size={size} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    </Stack>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: theme.colorDarkest,
+  },
+});
 
 export default _layout;
