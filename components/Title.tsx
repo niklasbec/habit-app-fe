@@ -1,12 +1,14 @@
 import { Text, StyleSheet } from "react-native";
 import { theme } from "../theme";
+import React from "react";
 
 interface TitleProps {
-  title: string;
+  children: string;
+  style?: any;
 }
 
-const Title = ({ title }: TitleProps) => {
-  return <Text style={styles.title}>{title}</Text>;
+const Title = ({ children, style }: TitleProps) => {
+  return <Text style={[styles.title, style]}>{children}</Text>;
 };
 
 export default Title;

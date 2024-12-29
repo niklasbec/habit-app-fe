@@ -1,20 +1,43 @@
-import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Pressable, TextInput } from "react-native";
 import { theme } from "../../theme";
 import { useRouter } from "expo-router";
 import Title from "../../components/Title";
+import { useDispatch } from "react-redux";
+import { addHabit } from "../../store/slices/habitSlice";
 
 const Create = () => {
   const router = useRouter();
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    if (value) {
+      const newItem = {
+        id: new Date().toISOString(),
+        title: value,
+        history: {},
+      };
+      dispatch(addHabit(newItem));
+      router.back();
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Title title="Create new habit" />
+      <Title>Create new habit</Title>
+      <TextInput
+        style={styles.textInput}
+        placeholder="coffee"
+        value={value}
+        onChangeText={setValue}
+        returnKeyType="done"
+      />
       <View style={styles.buttonContainer}>
         <Pressable onPress={() => router.back()} style={styles.button}>
           <Text style={styles.buttonText}>Cancel</Text>
         </Pressable>
-        <Pressable style={styles.button}>
+        <Pressable onPress={handleSubmit} style={styles.button}>
           <Text style={styles.buttonText}>Create</Text>
         </Pressable>
       </View>
@@ -42,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 15,
-    backgroundColor: theme.colorLightest,
+    backgroundColor: theme.colorWhite,
     borderRadius: 5,
     width: "45%",
   },
@@ -50,5 +73,15 @@ const styles = StyleSheet.create({
     color: theme.colorDarkest,
     fontSize: 18,
     fontWeight: "500",
+  },
+  textInput: {
+    borderColor: theme.colorLight,
+    borderWidth: 2,
+    padding: 12,
+    marginHorizontal: 12,
+    marginBottom: 12,
+    fontSize: 18,
+    borderRadius: 50,
+    backgroundColor: theme.colorWhite,
   },
 });
