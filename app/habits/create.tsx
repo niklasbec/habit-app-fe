@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import Title from "../../components/Title";
 import { useDispatch } from "react-redux";
 import { addHabit } from "../../store/slices/habitSlice";
+import ImageBackgroundWrapper from "../../components/ImageBackgroundWrapper";
 
 const Create = () => {
   const router = useRouter();
@@ -24,7 +25,7 @@ const Create = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackgroundWrapper style={styles.container}>
       <Title>Create new habit</Title>
       <TextInput
         style={styles.textInput}
@@ -41,7 +42,7 @@ const Create = () => {
           <Text style={styles.buttonText}>Create</Text>
         </Pressable>
       </View>
-    </View>
+    </ImageBackgroundWrapper>
   );
 };
 
@@ -49,7 +50,6 @@ export default Create;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colorDarkest,
     flex: 1,
     padding: 30,
     justifyContent: "space-between",

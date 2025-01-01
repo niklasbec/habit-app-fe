@@ -62,6 +62,7 @@ const Habit = ({ title, history, id, daily }: HabitProps) => {
     checkboxContainer: {
       display: "flex",
       flexDirection: "row",
+      alignItems: "center",
       justifyContent: "space-between",
       width: 180,
       padding: 8,

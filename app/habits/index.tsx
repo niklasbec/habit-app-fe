@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Habit from "../../components/Habit";
 import { useSelector } from "react-redux";

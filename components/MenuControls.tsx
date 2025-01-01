@@ -14,14 +14,14 @@ const MenuControls = () => {
 
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: theme.colorWhite,
-      width: width / 1.5,
-      position: "absolute",
+      backgroundColor: theme.colorDarkWhite,
+      width: width / 1.8,
       bottom: bottom + 15,
-      left: width / 6,
+      left: (width - width / 1.8) / 2,
       right: 0,
-      borderRadius: 15,
-      padding: 10,
+      position: "absolute",
+      borderRadius: 40,
+      padding: 20,
       paddingHorizontal: 30,
       flex: 1,
       flexDirection: "row",
@@ -31,11 +31,14 @@ const MenuControls = () => {
 
   return (
     <View style={styles.container}>
-      <FontAwesome
-        style={{ color: theme.colorLightBlack }}
-        name="cog"
-        size={32}
-      />
+      <Pressable onPress={() => router.navigate("/")} hitSlop={20}>
+        <FontAwesome
+          style={{ color: theme.colorLightBlack }}
+          name="home"
+          size={32}
+        />
+      </Pressable>
+
       <Pressable onPress={() => router.navigate("/login/login")} hitSlop={20}>
         <FontAwesome5
           name="user-friends"

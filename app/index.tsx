@@ -1,14 +1,18 @@
 import { StyleSheet, ScrollView, View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { theme } from "../theme";
 import MoodSurvey from "../components/MoodSurvey";
 import MainContainer from "../components/MainContainer";
 import { format } from "date-fns";
-import { useSelector } from "react-redux";
-import { selectHabits } from "../store/slices/habitSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserHabits, selectHabits } from "../store/slices/habitSlice";
 import Habit from "../components/Habit";
+import { AppDispatch } from "../store";
 
 export default function App() {
+  const dispatch = useDispatch<AppDispatch>();
+  const habits = useSelector(selectHabits);
+
   const styles = StyleSheet.create({
     greetingsBox: {
       display: "flex",
@@ -29,7 +33,9 @@ export default function App() {
     },
   });
 
-  const habits = useSelector(selectHabits);
+  useEffect(() => {
+    dispatch(fetchUserHabits(2));
+  }, [dispatch]);
 
   const date = format(new Date(), "MMMM d");
   const day = format(new Date(), "eeee");

@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import axios from "axios";
 
 type HabitHistoryPoint = {
   date: string;
@@ -25,6 +26,20 @@ const initialState: InitialState = {
   habits: [],
 };
 
+export const fetchUserHabits = createAsyncThunk(
+  "habit/fetchHabits",
+  async (userId: number, thunkAPI) => {
+    await axios
+      .get(`${process.env.EXPO_PUBLIC_API_URL_DEVELOPMENT}/test`)
+      .then((res) => {
+        thunkAPI.dispatch(setHabits(res.data.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+);
+
 export const habitSlice = createSlice({
   name: "habit",
   initialState,
@@ -49,10 +64,14 @@ export const habitSlice = createSlice({
         }
       }
     },
+    setHabits: (state, action: PayloadAction<Habit[]>) => {
+      console.log({ lel: action.payload });
+      state.habits = action.payload;
+    },
   },
 });
 
-export const { addHabit, checkOffHabit } = habitSlice.actions;
+export const { addHabit, checkOffHabit, setHabits } = habitSlice.actions;
 
 export const selectHabits = (state: RootState) => state.habit.habits;
 

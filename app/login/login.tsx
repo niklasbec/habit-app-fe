@@ -1,10 +1,13 @@
-import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, StyleSheet } from "react-native";
 import MainContainer from "../../components/MainContainer";
 import Title from "../../components/Title";
 import { theme } from "../../theme";
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <View>
       <MainContainer imageIndex={1}>
@@ -14,16 +17,16 @@ export default function Login() {
         <View>
           <TextInput
             style={styles.textInput}
-            placeholder="coffee"
-            value={value}
-            onChangeText={setValue}
+            placeholder="username"
+            value={username}
+            onChangeText={setUsername}
             returnKeyType="done"
           />
           <TextInput
             style={styles.textInput}
-            placeholder="coffee"
-            value={value}
-            onChangeText={setValue}
+            placeholder="password"
+            value={password}
+            onChangeText={setPassword}
             returnKeyType="done"
           />
         </View>
